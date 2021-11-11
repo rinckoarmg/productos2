@@ -1,8 +1,32 @@
+import 'package:productos_app/providers/product_form_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:productos_app/services/services.dart';
 import 'package:productos_app/ui/input_decorations.dart';
 import 'package:productos_app/widgets/widgets.dart';
 
 class ProductScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final productsService = Provider.of<ProductsService>(context);
+
+    return ChangeNotifierProvider(
+      create: (_) => ProductFormProvider(productsService.selectedProduct),
+      child: _ProductScreenBody(productsService: productsService),
+    );
+
+    //return ;
+  }
+}
+
+class _ProductScreenBody extends StatelessWidget {
+  const _ProductScreenBody({
+    Key? key,
+    required this.productsService,
+  }) : super(key: key);
+
+  final ProductsService productsService;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,7 +36,7 @@ class ProductScreen extends StatelessWidget {
           children: [
             Stack(
               children: [
-                ProductImage(),
+                ProductImage(url: productsService.selectedProduct!.imagen),
                 Positioned(
                   top: 60,
                   left: 20,
@@ -50,24 +74,36 @@ class ProductScreen extends StatelessWidget {
 class _ProductForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final productForm = Provider.of<ProductFormProvider>(context);
+    final product = productForm.product;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20),
         width: double.infinity,
-        height: 260,
+        height: 360,
         decoration: _buildBoxDecoration(),
         child: Form(
             child: Column(
           children: [
             SizedBox(height: 10),
             TextFormField(
+              initialValue: product.nombre,
               decoration: InputDecorations.authInputDecoration(
                   hintText: 'Nombre del producto', labelText: 'Nombre'),
             ),
             SizedBox(height: 20),
             TextFormField(
+              maxLines: 3,
+              initialValue: product.descripcion,
+              decoration: InputDecorations.authInputDecoration(
+                  hintText: 'Descripcion del producto',
+                  labelText: 'Descripción'),
+            ),
+            SizedBox(height: 20),
+            TextFormField(
               keyboardType: TextInputType.number,
+              initialValue: '\$${product.precio}',
               decoration: InputDecorations.authInputDecoration(
                   hintText: '\$150', labelText: 'Precio'),
             ),
