@@ -9,7 +9,6 @@ class IniScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categoriesService = Provider.of<CategoriesService>(context);
-    //final categoriesProvider = Provider.of<CategoriesProvider>(context);
 
     if (categoriesService.isLoading) return LoadingScreen();
 
@@ -18,8 +17,12 @@ class IniScreen extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              CategoriasSlider(categoria: categoriesService.categorias[0]),
-              CategoriasSlider(categoria: categoriesService.categorias[1]),
+              SizedBox(height: 10),
+              CategoriasSlider('Productos',
+                  categoria: categoriesService.categorias[2]),
+              SizedBox(height: 10),
+              CategoriasSlider('Servicios',
+                  categoria: categoriesService.categorias[5]),
             ],
           ),
         ));
