@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:productos_app/providers/categories_provider.dart';
 import 'package:productos_app/screens/screens.dart';
 import 'package:productos_app/services/services.dart';
 import 'package:productos_app/widgets/widgets.dart';
