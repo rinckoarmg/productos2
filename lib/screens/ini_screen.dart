@@ -8,7 +8,7 @@ class IniScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final categoriesService = Provider.of<CategoriesService>(context);
-
+    print(categoriesService.listaCategorias);
     if (categoriesService.isLoading) return LoadingScreen();
 
     return Scaffold(
@@ -18,10 +18,10 @@ class IniScreen extends StatelessWidget {
             children: [
               SizedBox(height: 10),
               CategoriasSlider('Productos',
-                  categoria: categoriesService.categorias[2]),
+                  listCat: categoriesService.listaCategorias),
               SizedBox(height: 10),
               CategoriasSlider('Servicios',
-                  categoria: categoriesService.categorias[5]),
+                  listCat: categoriesService.listaCategorias),
             ],
           ),
         ));

@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 
 class CategoriesService extends ChangeNotifier {
   final String _baseUrl = 'categorias-app-default-rtdb.firebaseio.com';
-  final List<Categorias> categorias = [];
+  final List<Categorias> listaCategorias = [];
 
   bool isLoading = true;
 
@@ -18,15 +18,15 @@ class CategoriesService extends ChangeNotifier {
     final url = Uri.https(_baseUrl, '/categorias.json');
     final resp = await http.get(url);
     final Map<String, dynamic> categoriesMap = json.decode(resp.body);
-    print(categoriesMap);
+    //print(categoriesMap);
 
     categoriesMap.forEach((key, value) {
       final tempCategory = Categorias.fromMap(value);
       tempCategory.nombre = key;
-      this.categorias.add(tempCategory);
+      this.listaCategorias.add(tempCategory);
     });
     this.isLoading = false;
     notifyListeners();
-    return this.categorias;
+    return this.listaCategorias;
   }
 }

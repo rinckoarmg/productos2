@@ -6,11 +6,13 @@ import 'package:productos_app/services/services.dart';
 import 'package:provider/provider.dart';
 
 class CategoriasSlider extends StatelessWidget {
-  final Categorias categoria;
+  final List<Categorias> listCat;
+
+  //final Categorias categoria;
   final String tituloCategoria;
 
   const CategoriasSlider(this.tituloCategoria,
-      {Key? key, required this.categoria})
+      {Key? key, required this.listCat})
       : super(key: key);
 
   @override
@@ -31,9 +33,11 @@ class CategoriasSlider extends StatelessWidget {
           Expanded(
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: categoriaService.categorias.length,
-                itemBuilder: (BuildContext context, int index) =>
-                    _ImagenCategoria(categoria.imagen, categoria.nombre)),
+                itemCount: listCat.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final categ = listCat[index];
+                  return _ImagenCategoria(categ.imagen, categ.nombre);
+                }),
           ),
         ],
       ),
