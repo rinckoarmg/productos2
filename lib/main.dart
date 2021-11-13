@@ -1,3 +1,5 @@
+import 'package:productos_app/providers/categories_provider.dart';
+import 'package:productos_app/screens/categories_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +12,10 @@ class AppState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => ProductsService())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => ProductsService()),
+        ChangeNotifierProvider(create: (_) => CategoriesService()),
+      ],
       child: MyApp(),
     );
   }
@@ -23,11 +28,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Productos App',
       //initialRoute: 'login',
-      initialRoute: 'home',
+      //initialRoute: 'home',
+      initialRoute: 'ini',
       routes: {
         'login': (_) => LoginScreen(),
         'home': (_) => HomeScreen(),
         'product': (_) => ProductScreen(),
+        'categories': (_) => CategoriesScreen(),
+        'ini': (_) => IniScreen(),
       },
       theme: ThemeData.light().copyWith(
           scaffoldBackgroundColor: Colors.grey[300],

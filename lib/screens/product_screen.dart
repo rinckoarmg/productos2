@@ -1,6 +1,9 @@
+import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
+
 import 'package:productos_app/providers/product_form_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/material.dart';
+
 import 'package:productos_app/services/services.dart';
 import 'package:productos_app/ui/input_decorations.dart';
 import 'package:productos_app/widgets/widgets.dart';
@@ -32,11 +35,12 @@ class _ProductScreenBody extends StatelessWidget {
     return Scaffold(
       //appBar: AppBar(),
       body: SingleChildScrollView(
+        //keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         child: Column(
           children: [
             Stack(
               children: [
-                ProductImage(url: productsService.selectedProduct!.imagen),
+                ProductImage(url: productsService.selectedProduct.imagen),
                 Positioned(
                   top: 60,
                   left: 20,
@@ -89,6 +93,11 @@ class _ProductForm extends StatelessWidget {
             SizedBox(height: 10),
             TextFormField(
               initialValue: product.nombre,
+              onChanged: (value) => product.nombre = value,
+              validator: (value) {
+                if (value == null || value.length < 1)
+                  return 'El nombre es obligatorio';
+              },
               decoration: InputDecorations.authInputDecoration(
                   hintText: 'Nombre del producto', labelText: 'Nombre'),
             ),
@@ -96,25 +105,38 @@ class _ProductForm extends StatelessWidget {
             TextFormField(
               maxLines: 3,
               initialValue: product.descripcion,
+              onChanged: (value) => product.descripcion = value,
+              // validator: (value) {
+              //   if (value == null || value.length < 1)
+              //     return 'El nombre es obligatorio';
+              // },
               decoration: InputDecorations.authInputDecoration(
                   hintText: 'Descripcion del producto',
                   labelText: 'Descripción'),
             ),
             SizedBox(height: 20),
             TextFormField(
-              keyboardType: TextInputType.number,
               initialValue: '\$${product.precio}',
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp(r'^(\d+)?\.?\d{0,2}'))
+              ],
+              onChanged: (value) {
+                if (int.tryParse(value) == null) {
+                  product.precio = 0;
+                } else {
+                  product.precio = int.parse(value);
+                }
+              },
+              keyboardType: TextInputType.number,
               decoration: InputDecorations.authInputDecoration(
                   hintText: '\$150', labelText: 'Precio'),
             ),
             SizedBox(height: 20),
             SwitchListTile.adaptive(
-                value: true,
+                value: product.disponible,
                 title: Text('Disponible'),
                 activeColor: Colors.indigo,
-                onChanged: (value) {
-                  //TODO: validacion
-                }),
+                onChanged: productForm.updateAvailability),
           ],
         )),
       ),

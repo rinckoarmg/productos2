@@ -12,7 +12,7 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Productos'),
+        title: Text('Productos por tienda'),
       ),
       //listView.bilder es cuando necesitamos que valla creando elmentos
       body: ListView.builder(
