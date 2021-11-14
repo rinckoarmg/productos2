@@ -17,11 +17,10 @@ class CategoriasSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final categoriaService = Provider.of<CategoriesService>(context);
     return Container(
       width: double.infinity,
       height: 230,
-      color: Colors.blueAccent,
+      //color: Colors.blueAccent,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -56,7 +55,7 @@ class _ImagenCategoria extends StatelessWidget {
     return Container(
       width: 130,
       height: 170,
-      color: Colors.green,
+      //color: Colors.green,
       margin: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Column(
         children: [

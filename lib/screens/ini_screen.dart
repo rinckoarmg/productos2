@@ -18,10 +18,10 @@ class IniScreen extends StatelessWidget {
             children: [
               SizedBox(height: 10),
               CategoriasSlider('Productos',
-                  listCat: categoriesService.listaCategorias),
+                  listCat: categoriesService.productos),
               SizedBox(height: 10),
               CategoriasSlider('Servicios',
-                  listCat: categoriesService.listaCategorias),
+                  listCat: categoriesService.servicios),
             ],
           ),
         ));

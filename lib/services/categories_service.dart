@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 class CategoriesService extends ChangeNotifier {
   final String _baseUrl = 'categorias-app-default-rtdb.firebaseio.com';
   final List<Categorias> listaCategorias = [];
+  final List<Categorias> productos = [];
+  final List<Categorias> servicios = [];
 
   bool isLoading = true;
 
@@ -24,6 +26,11 @@ class CategoriesService extends ChangeNotifier {
       final tempCategory = Categorias.fromMap(value);
       tempCategory.nombre = key;
       this.listaCategorias.add(tempCategory);
+      if (tempCategory.tipo == true) {
+        this.productos.add(tempCategory);
+      } else {
+        this.servicios.add(tempCategory);
+      }
     });
     this.isLoading = false;
     notifyListeners();
