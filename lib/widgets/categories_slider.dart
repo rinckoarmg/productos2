@@ -2,8 +2,6 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:productos_app/models/models.dart';
-import 'package:productos_app/services/services.dart';
-import 'package:provider/provider.dart';
 
 class CategoriasSlider extends StatelessWidget {
   final List<Categorias> listCat;
@@ -26,8 +24,15 @@ class CategoriasSlider extends StatelessWidget {
         children: [
           Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text(tituloCategoria,
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold))),
+              child: Text(
+                tituloCategoria,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Monserrat',
+                  fontSize: 24,
+                  color: Colors.teal[800],
+                ),
+              )),
           SizedBox(height: 5),
           Expanded(
             child: ListView.builder(
@@ -75,7 +80,7 @@ class _ImagenCategoria extends StatelessWidget {
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.center,
-            style: TextStyle(fontSize: 16),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
           )
         ],
       ),
